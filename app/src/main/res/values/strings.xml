@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SoomlaTest</string>
     <string name="load_banner">Please show me a banner</string>
+    <string name="load_another_banner">I want to see another banner</string>
 </resources>
