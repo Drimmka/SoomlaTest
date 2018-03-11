@@ -41,15 +41,22 @@ public class MainActivity extends AppCompatActivity {
         initLoadAdButton();
     }
 
-    //create ad views list and populate the first ad
+    /**
+     * create ad views list and populate the first ad
+     */
     private void initAdViewsList() {
         adViews = new ArrayList<>();
         //first banner is preloaded, and set to invisible till the button is pressed
         adViews.add(initAdView(R.id.banner_container, REDIRECT_INSTALL_URL1, NEW_ICON_SRC1));
     }
 
-
-    //create adView and load ad into it
+    /**
+     * create adView and load ad into it
+     * @param containerID linearlayout id that will hold the banner
+     * @param newActionUrl - url to open upon clicking "install now" button
+     * @param newIconImageSrc - image url to replace the icon image
+     * @return the created adView
+     */
     private AdView initAdView(int containerID, final String newActionUrl, final String newIconImageSrc) {
         AdView adView = new AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
 
@@ -88,19 +95,30 @@ public class MainActivity extends AppCompatActivity {
         });
 
         adView.setVisibility(View.INVISIBLE); //for the first one only
-        AdSettings.addTestDevice("72f0908e-d5af-4140-bce7-ed847395c516"); //emulator
-        //AdSettings.addTestDevice("b179acf8-eb38-48bc-9d17-691160ec254d");// phone
+        //AdSettings.addTestDevice("995409ff-0457-4872-99da-d14448abd564"); //emulator
+        //AdSettings.addTestDevice("8537e4d8-7053-4282-9896-fc95a63b7e9b");// phone
         // Request an ad
         adView.loadAd();
         return adView;
     }
 
-    //create new webClient for this webView
+    /**
+     * create new webClient for this webView
+     * @param view - webView to attach the client to
+     * @param newActionUrl
+     * @param newIconImageSrc
+     */
     private void setWebClient(WebView view, String newActionUrl, String newIconImageSrc) {
         view.setWebViewClient(new CustomWebViewClient(getApplicationContext(), newActionUrl, newIconImageSrc));
     }
 
-    //find the webview in the returned ad object
+
+
+    /**
+     * method that receives an Ad unit and using reflection to find the webview
+     * @param ad
+     * @return the webView object insode the Ad
+     */
     private WebView findWebView(Ad ad) {
         Field f = null;
         try {
@@ -155,7 +173,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //dynamically create new banner and add it to the container layout
+    /**
+     * dynamically create new banner and add it to the container layout
+     */
     private void addNewBanner() {
         LinearLayout newBannerLAyout = new LinearLayout(this);
         newBannerLAyout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
